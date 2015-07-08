@@ -10,6 +10,7 @@ def make_values(corpus, word_key):
     
     file = open(corpus)
 
+
     lastword = ""
     last_key = ()
 
@@ -46,7 +47,7 @@ def make_values(corpus, word_key):
 
 print('***')*33
 # print make_values("green-eggs.txt", ('you', 'like'))
-print make_values("green-eggs.txt", ('a', 'mouse?'))
+#print make_values("green-eggs.txt", ('a', 'mouse?'))
 print('****')*33
 
 
@@ -57,6 +58,7 @@ def make_chains(corpus):
     markov_dictionary = {}
     word_key = ['None', 'None']
     word_list = []
+    lastword = ""
 
 #use for loop to make lines in file a list
     for line in file:
@@ -65,10 +67,11 @@ def make_chains(corpus):
 
         # generate keys
 
-        word_key[0] = words[len(words)-1]
+        word_key[0] = lastword
         word_key[1] = words[0]
         
-        markov_dictionary[tuple(word_key)] = make_values(corpus, word_key)
+        if lastword:
+            markov_dictionary[tuple(word_key)] = make_values(corpus, word_key)
 
         # tuple_key = tuple(word_key)
 
@@ -94,9 +97,12 @@ def make_chains(corpus):
             #markov_dictionary[tuple(word_key)] = []
 
             i += 1
+
+        lastword = words[len(words) - 1]
+
     return markov_dictionary
 
-print make_chains("green-eggs.txt")
+print make_chains("gettsburg.txt")
 
 
 
